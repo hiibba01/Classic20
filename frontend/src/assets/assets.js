@@ -144,6 +144,7 @@ import m153 from './m153.jpg'
 import w11 from './w11.jpg'
 import w12 from './w12.jpg'
 import w13 from './w13.jpg'
+import w14 from './w14.jpg'
 import w21 from './w21.jpg'
 import w22 from './w22.jpg'
 import w23 from './w23.jpg'
@@ -187,10 +188,17 @@ import c202 from './classic20_2.svg'
 import c203 from './classic20_3.svg'
 import c204 from './classic20_4.svg'
 import c205 from './classic20_5.svg'
-import c206 from './classic20_7.svg'
+import c206 from './classic20_7.jpeg'
+import c208 from './classic20_8.png'
+import c209 from './classic20_9.png'
+import s1 from './search.svg'
+import u1 from './user.svg'
+import cart from './cart.svg'
+import menu from './menu.svg'
+import alignright from './alignright.svg'
 
 export const assets = {
-    c201,c202,c203,c204,c205,c206,c1,c2,c3,c4,c5,c6,c7,c8,c9
+    alignright,cart,menu,s1,u1,c201,c202,c203,c204,c205,c206,c208,c209,c1,c2,c3,c4,c5,c6,c7,c8,c9
 }
 export const products = [
     {
@@ -425,7 +433,7 @@ export const products = [
         sizes: ["S", "XL"],
         dateMs: Date.parse("2026-03-10T00:00:00.000Z"),
         dateISO: "2026-03-10T00:00:00.000Z",
-        bestseller: flase,
+        bestseller: false,
     },
     {
         _id: "m4",
