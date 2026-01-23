@@ -196,9 +196,11 @@ import u1 from './user.svg'
 import cart from './cart.svg'
 import menu from './menu.svg'
 import alignright from './alignright.svg'
+import c10 from './c10.jpg'
+
 
 export const assets = {
-    alignright,cart,menu,s1,u1,c201,c202,c203,c204,c205,c206,c208,c209,c1,c2,c3,c4,c5,c6,c7,c8,c9
+    alignright,cart,menu,s1,u1,c201,c202,c203,c204,c205,c206,c208,c209,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10
 }
 export const products = [
     {
