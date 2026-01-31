@@ -7,11 +7,12 @@ import ProductItem from '../components/ProductItem'
 const Collection = () => {
 
 
-  const {products} = useContext(ShopContext);
+  const {products, search , showSearch} = useContext(ShopContext);
   const [showFilter,setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
+  const [sortType, setSortType] = useState('relevant');
 
   const toggleCategory = (e) => {
     if(category.includes(e.target.value)){
@@ -22,17 +23,60 @@ const Collection = () => {
   }
 }
 
+const toggleSubCategory = (e) => {
+  if(subCategory.includes(e.target.value)){
+    setSubCategory(prev=> prev.filter(item=>item !== e.target.value));}
+  else{
+  setSubCategory(prev=> [...prev, e.target.value]);
+  }  
+}
+
+const applyFilter = () => {
+  let productsCopy = products.slice();
+
+  if(showSearch && search){
+    productsCopy = productsCopy.filter((item)=> item.name.toLowerCase().includes(search.toLowerCase()));
+  }
+
+  if(category.length > 0){
+    productsCopy = productsCopy.filter((item)=> category.includes(item.category));
+  }
+
+  if(subCategory.length > 0){
+    productsCopy = productsCopy.filter((item)=> subCategory.includes(item.subCategory));
+  }
+
+  setFilterProducts(productsCopy);
+}
+const sortProduct = () => {
+  let fpCopy = filterProducts.slice();
+
+  switch(sortType){
+    case 'low-high':
+      setFilterProducts(fpCopy.sort((a,b)=> (a.price - b.price)));
+      break;
+    case 'high-low':
+      setFilterProducts(fpCopy.sort((a,b)=> (b.price - a.price)));
+      break;  
+    default:
+      applyFilter();
+      break;  
+  }
+
+}
+
+
+
   useEffect(()=>{
-    setFilterProducts(products);
-  },[])
+    applyFilter();
+  }, [category, subCategory, search, showSearch])
 
-  useEffect(()=> {
-console.log(category);
-
-  },[category])
+  useEffect(()=>{
+    sortProduct();
+  }, [sortType])
 
   return (
-    <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t'>
+    <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t border-pink-700'>
 
 
       {/* filter options  */}
@@ -76,34 +120,34 @@ console.log(category);
           <p className='mb-3 text-sm font-medium text-pink-700'>TYPE</p>
           <div className='flex flex-col gap-2 text-sm font-light text-pink-700'>
             <label className="flex items-center gap-2 text-pink-600">
-              <input type="checkbox" className="w-4 h-4 accent-pink-500" value={'Topwear'}/>
+              <input type="checkbox" className="w-4 h-4 accent-pink-500" value={'Topwear'} onChange={toggleSubCategory}/>
                 Topwear
            </label>
 
             <label className="flex items-center gap-2 text-pink-600">
-              <input type="checkbox" className="w-4 h-4 accent-pink-500" value={'Bottomwear'} />
+              <input type="checkbox" className="w-4 h-4 accent-pink-500" value={'Bottomwear'} onChange={toggleSubCategory} />
                 Bottomwear
             </label>
 
             <label className="flex items-center gap-2 text-pink-600">
-              <input type="checkbox" className="w-4 h-4 accent-pink-500" value={'Winterwear'} />
+              <input type="checkbox" className="w-4 h-4 accent-pink-500" value={'Winterwear'} onChange={toggleSubCategory} />
                 Winterwear
               </label>
 
             <label className="flex items-center gap-2 text-pink-600">
-              <input type="checkbox" className="w-4 h-4 accent-pink-500" value={'ring'}/>
+              <input type="checkbox" className="w-4 h-4 accent-pink-500" value={'ring'} onChange={toggleSubCategory}/>
                 Rings
             </label>
             <label className="flex items-center gap-2 text-pink-600">
-              <input type="checkbox" className="w-4 h-4 accent-pink-500" value={'pendant'}/>
+              <input type="checkbox" className="w-4 h-4 accent-pink-500" value={'pendant'} onChange={toggleSubCategory}/>
                 Pendant
             </label>
             <label className="flex items-center gap-2 text-pink-600">
-              <input type="checkbox" className="w-4 h-4 accent-pink-500" value={'bracelet'}/>
+              <input type="checkbox" className="w-4 h-4 accent-pink-500" value={'bracelet'} onChange={toggleSubCategory}/>
                 Bracelet
             </label>
             <label className="flex items-center gap-2 text-pink-600">
-              <input type="checkbox" className="w-4 h-4 accent-pink-500" value={'earrings'}/>
+              <input type="checkbox" className="w-4 h-4 accent-pink-500" value={'earrings'} onChange={toggleSubCategory}/>
                 Earrings
             </label>
 
@@ -121,7 +165,7 @@ console.log(category);
           <Title text1={'ALL'} text2={'COLLECTIONS'} />
 
           {/* product sorting  */}
-          <select className='border border-pink-700 text-sm px-2 text-pink-700'>
+          <select onChange={(e) => setSortType(e.target.value)} className='border border-pink-700 text-sm px-2 text-pink-700'>
             <option value="relevant">Sort by: Relevant</option>
             <option value="low-high">Sort by: Low to High</option>
             <option value="high-low">Sort by: High to Low</option>
