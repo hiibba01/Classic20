@@ -205,10 +205,14 @@ import search from './search.svg'
 import cross from './image.png'
 import gstar from './gstar.png'
 import dstar from './dstar.png'
+import trash from './trash.svg'
+import gp from './gpay.png'
+import paytm from './paytm.png'
+import phonepe from './phonepe.svg'
 
 
 export const assets = {
-    gstar,dstar,cross,search,drop,re,f,exchange,alignright,cart,menu,s1,u1,c201,c202,c203,c204,c205,c206,c208,c209,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10
+    gp,paytm,phonepe,trash,gstar,dstar,cross,search,drop,re,f,exchange,alignright,cart,menu,s1,u1,c201,c202,c203,c204,c205,c206,c208,c209,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10
 }
 export const products = [
     {
