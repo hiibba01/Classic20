@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import Title from '../components/Title'
 import CartTotal from '../components/CartTotal'
 import { assets } from '../assets/assets'
+import { ShopContext } from '../context/ShopContext'
 
 const PlaceOrder = () => {
+const [method,setMethod]=useState('cod');
+const {navigate} = useContext(ShopContext);
+
+
   return (
     <div className='flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t border-pink-700'>
          {/* left side  */}
@@ -44,38 +49,35 @@ const PlaceOrder = () => {
 
           <Title text1={'PAYMENT'} text2={'METHOD'}/>
           {/* diff payment methods  */}
-          <div className='flex gap-3 flex-col lg:flex-row'>
-            <div className='flex items-center gap-3 border border-pink-700 p-2 px-3 cursor-pointer'>
-              <p className={`min-w-3.5 h-3.5 border border-pink-700 rounded-full`}></p>
+          <div  className='flex gap-3 flex-col lg:flex-row'>
+            <div onClick={()=>setMethod('googlepay')} className='flex items-center gap-3 border border-pink-700 p-2 px-3 cursor-pointer'>
+              <p className={`min-w-3.5 h-3.5 border border-pink-700 rounded-full ${method === 'googlepay' ? 'bg-green-300' : ''}`}></p>
               <img src={assets.gp} className='h-7 mx-5' />
 
             </div>
 
-            <div className='flex items-center gap-3 border border-pink-700 p-2 px-3 cursor-pointer'>
-              <p className={`min-w-3.5 h-3.5 border border-pink-700 rounded-full`}></p>
+            <div onClick={()=>setMethod('phonepe')} className='flex items-center gap-3 border border-pink-700 p-2 px-3 cursor-pointer'>
+              <p className={`min-w-3.5 h-3.5 border border-pink-700 rounded-full ${method === 'phonepe' ? 'bg-green-300' : ''}`}></p>
               <img src={assets.phonepe} className='h-10 mx-7' />
 
             </div>
-            <div className='flex items-center gap-3 border border-pink-700 p-2 px-3 cursor-pointer'>
-              <p className={`min-w-3.5 h-3.5 border border-pink-700 rounded-full`}></p>
+            <div onClick={()=>setMethod('paytm')} className='flex items-center gap-3 border border-pink-700 p-2 px-3 cursor-pointer'>
+              <p className={`min-w-3.5 h-3.5 border border-pink-700 rounded-full ${method === 'paytm' ? 'bg-green-300' : ''}`}></p>
               <img src={assets.paytm} className='h-5 mx-4' />
 
             </div>
-            <div className='flex items-center gap-3 border border-pink-700 p-2 px-3 cursor-pointer'>
-              <p className={`min-w-3.5 h-3.5 border border-pink-700 rounded-full`}></p>
+            <div onClick={()=>setMethod('cod')} className='flex items-center gap-3 border border-pink-700 p-2 px-3 cursor-pointer'>
+              <p className={`min-w-3.5 h-3.5 border border-pink-700 rounded-full ${method === 'cod' ? 'bg-green-300' : ''}`}></p>
               <p className='text-pink-600 text-xs font-medium mx-4'>CASH ON DELIVERY</p>
-
             </div>
-
-            
-
-
           </div>
 
-        </div>
+          <div className='w-full text-end mt-8'>
+            <button onClick={()=>navigate('/orders')} className='bg-pink-300 text-pink-700 px-16 py-3 text-sm'>PLACE ORDER</button>
 
+          </div>
+        </div>
       </div>
-        
     </div>
   )
 }
